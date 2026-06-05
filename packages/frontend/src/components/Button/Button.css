@@ -15,11 +15,24 @@
   font-weight: var(--label-md-weight);
   letter-spacing: var(--label-md-letter-spacing);
   cursor: pointer;
-  transition: background var(--transition-base),
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-base),
               opacity var(--transition-base),
               filter var(--transition-base);
   white-space: nowrap;
   user-select: none;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.6);
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* ── Sizes ── */

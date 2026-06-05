@@ -18,6 +18,7 @@
   border-left: var(--glass-stroke-width) solid var(--glass-stroke-color);
   border-right: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.05);
   border-bottom: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-md);
 }
 
 /* ── Elevated glass level ── */
@@ -29,6 +30,7 @@
   border-left: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.2);
   border-right: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.06);
   border-bottom: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ── Padding sizes ── */
