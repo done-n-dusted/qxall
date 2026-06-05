@@ -36,3 +36,6 @@ coverage/
 
 # Brainstorming Visual Companion
 .superpowers/
+
+# Superpowers Specs and Plans
+docs/superpowers/
