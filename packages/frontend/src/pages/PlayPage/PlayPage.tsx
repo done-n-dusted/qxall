@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
+import { Plus, RotateCcw, Flag, Handshake, History, List } from 'lucide-react';
 import './PlayPage.css';
 
 function getStatusText(
@@ -158,23 +159,37 @@ export function PlayPage() {
             <div className="play-page__actions">
               {isGameActive && !isGameOver ? (
                 <>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setShowHistory((prev) => !prev)}
+                  >
+                    {showHistory ? (
+                      <>
+                        <List size={16} /> Show Moves
+                      </>
+                    ) : (
+                      <>
+                        <History size={16} /> Previous Games
+                      </>
+                    )}
+                  </Button>
                   <Button variant="secondary" onClick={() => setIsDrawAgreed(true)}>
-                    Offer Draw
+                    <Handshake size={16} /> Offer Draw
                   </Button>
                   <Button variant="secondary" onClick={() => setIsResigned(true)} className="play-page__btn-resign">
-                    Resign
+                    <Flag size={16} /> Resign
                   </Button>
                   <Button variant="secondary" onClick={handleNewGame}>
-                    New Game
+                    <Plus size={16} /> New Game
                   </Button>
                 </>
               ) : isGameOver ? (
                 <Button variant="primary" onClick={handleNewGame}>
-                  Play Again
+                  <RotateCcw size={16} /> Play Again
                 </Button>
               ) : (
                 <Button variant="primary" onClick={handleNewGame}>
-                  New Game
+                  <Plus size={16} /> New Game
                 </Button>
               )}
             </div>
