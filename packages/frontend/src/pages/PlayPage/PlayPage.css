@@ -59,7 +59,23 @@
   box-sizing: border-box;
 }
 
-/* ── Status bar ── */
+/* ── Zen Heading & Status ── */
+.play-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: var(--space-2);
+}
+
+.play-page__title {
+  font-size: var(--body-lg-size);
+  font-weight: var(--headline-md-weight);
+  color: var(--color-on-surface);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
 .play-page__status {
   display: flex;
   align-items: center;
@@ -84,21 +100,117 @@
 }
 
 .play-page__status-text {
-  font-size: var(--body-md-size);
+  font-size: var(--label-sm-size);
   color: var(--color-on-surface-variant);
+}
+
+/* ── Scrollable Launcher Area ── */
+.play-page__content-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  padding-right: 4px;
+}
+
+/* Scrollbar styles for glass card scroller */
+.play-page__content-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.play-page__content-scrollable::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: var(--rounded-full);
+}
+
+.play-page__content-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--rounded-full);
+}
+
+.play-page__content-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 /* ── Move list wrapper — fill remaining space ── */
 .play-page__moves {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
+  min-height: 160px;
+  height: 180px; /* Constrain move list height inside the larger panel flow */
 }
 
-/* ── New Game button pushed to bottom ── */
-.play-page__new-game {
-  margin-top: auto;
+/* ── Quick-Start Actions ── */
+.play-page__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.play-page__actions > button {
+  flex: 1;
+}
+
+/* ── Sections ── */
+.play-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.play-page__section-title {
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-md-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--label-md-letter-spacing);
+  color: var(--color-outline);
+  margin: 0;
+  opacity: 0.6;
+  padding-bottom: 2px;
+}
+
+/* ── Recent Games List ── */
+.play-page__recent-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.play-page__game-card {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.04) !important;
+  transition: background var(--transition-fast) !important;
+}
+
+.play-page__game-card:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.play-page__game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.play-page__game-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.play-page__game-opponent {
+  font-size: var(--body-md-size);
+  font-weight: var(--label-md-weight);
+  color: var(--color-on-surface);
+}
+
+.play-page__game-opening {
+  font-size: var(--label-sm-size);
+  color: var(--color-on-surface-variant);
+}
+
+.play-page__game-date {
+  font-size: var(--label-sm-size);
+  color: var(--color-outline);
 }
 
 /* ── Responsive adjustments (retaining 70-30 board-left split) ── */

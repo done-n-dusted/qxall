@@ -1,4 +1,4 @@
-import { ChessBoard, useBoardState, MoveList, Button, GlassCard } from '../../components';
+import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
 import './PlayPage.css';
 
 function getStatusText(boardState: ReturnType<typeof useBoardState>): string {
@@ -8,6 +8,30 @@ function getStatusText(boardState: ReturnType<typeof useBoardState>): string {
   return boardState.turn === 'w' ? 'White to move' : 'Black to move';
 }
 
+const RECENT_GAMES = [
+  {
+    id: 1,
+    opponent: 'Magnus',
+    result: 'Win' as const,
+    opening: 'Sicilian Defense: Najdorf',
+    date: '2026-06-04',
+  },
+  {
+    id: 2,
+    opponent: 'Hikaru',
+    result: 'Loss' as const,
+    opening: "Queen's Gambit Declined",
+    date: '2026-06-03',
+  },
+  {
+    id: 3,
+    opponent: 'Ding',
+    result: 'Draw' as const,
+    opening: 'Ruy Lopez: Berlin Defense',
+    date: '2026-06-01',
+  },
+];
+
 export function PlayPage() {
   const boardState = useBoardState();
   const statusText = getStatusText(boardState);
@@ -16,48 +40,80 @@ export function PlayPage() {
   return (
     <div className="play-page">
       <div className="play-page__grid">
-        {/* Board */}
+        {/* Board (Always on the Left) */}
         <div className="play-page__board">
           <ChessBoard boardState={boardState} />
         </div>
 
-        {/* Side Panel */}
+        {/* Side Panel / Launcher (Always on the Right) */}
         <div className="play-page__panel">
           <GlassCard padding="lg" className="play-page__panel-inner">
-            {/* Status */}
-            <div className="play-page__status">
-              <span
-                className={[
-                  'play-page__turn-indicator',
-                  boardState.turn === 'w'
-                    ? 'play-page__turn-indicator--white'
-                    : 'play-page__turn-indicator--black',
-                ].join(' ')}
-              />
-              <span className="play-page__status-text">{statusText}</span>
+            
+            {/* Zen Heading & Status */}
+            <div className="play-page__header">
+              <h2 className="play-page__title">Master Every Opening</h2>
+              <div className="play-page__status">
+                <span
+                  className={[
+                    'play-page__turn-indicator',
+                    boardState.turn === 'w'
+                      ? 'play-page__turn-indicator--white'
+                      : 'play-page__turn-indicator--black',
+                  ].join(' ')}
+                />
+                <span className="play-page__status-text">{statusText}</span>
+              </div>
             </div>
 
-            {/* Move list */}
-            <div className="play-page__moves">
-              <MoveList
-                moves={boardState.moveHistory}
-                currentMoveIndex={
-                  boardState.moveHistory.length > 0
-                    ? boardState.moveHistory.length - 1
-                    : undefined
-                }
-              />
-            </div>
+            {/* Scrollable Panel Content (to keep viewport locked) */}
+            <div className="play-page__content-scrollable">
+              {/* Move List */}
+              <div className="play-page__section">
+                <div className="play-page__moves">
+                  <MoveList
+                    moves={boardState.moveHistory}
+                    currentMoveIndex={
+                      boardState.moveHistory.length > 0
+                        ? boardState.moveHistory.length - 1
+                        : undefined
+                    }
+                  />
+                </div>
+              </div>
 
-            {/* New Game button */}
-            <div className="play-page__new-game">
-              <Button
-                variant="secondary"
-                onClick={() => boardState.reset()}
-              >
-                {isGameOver ? 'Play Again' : 'New Game'}
-              </Button>
+              {/* Quick-Start Actions */}
+              <div className="play-page__actions">
+                <Button
+                  variant="primary"
+                  onClick={() => boardState.reset()}
+                >
+                  {isGameOver ? 'Play Again' : 'New Game'}
+                </Button>
+                <Button variant="secondary" onClick={() => boardState.reset()}>
+                  Explore Openings
+                </Button>
+              </div>
+
+              {/* Recent Games */}
+              <div className="play-page__section">
+                <h3 className="play-page__section-title">Recent Games</h3>
+                <div className="play-page__recent-list">
+                  {RECENT_GAMES.map((game) => (
+                    <GlassCard key={game.id} padding="sm" className="play-page__game-card">
+                      <div className="play-page__game-info">
+                        <div className="play-page__game-row">
+                          <span className="play-page__game-opponent">{game.opponent}</span>
+                          <Chip>{game.result}</Chip>
+                        </div>
+                        <span className="play-page__game-opening">{game.opening}</span>
+                        <span className="play-page__game-date">{game.date}</span>
+                      </div>
+                    </GlassCard>
+                  ))}
+                </div>
+              </div>
             </div>
+            
           </GlassCard>
         </div>
       </div>

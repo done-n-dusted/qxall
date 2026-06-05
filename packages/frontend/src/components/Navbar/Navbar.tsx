@@ -7,7 +7,7 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS = [
-  { label: 'Play', to: '/play' },
+  { label: 'Play', to: '/' },
   { label: 'Explore', to: '/explore' },
   { label: 'About', to: '/about' },
 ] as const;

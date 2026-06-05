@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { AppLayout } from './layouts/AppLayout';
-import { HomePage } from './pages/HomePage/HomePage';
 import { PlayPage } from './pages/PlayPage/PlayPage';
 
 export function App() {
@@ -8,7 +7,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<AppLayout />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<PlayPage />} />
           <Route path="play" element={<PlayPage />} />
         </Route>
       </Routes>
