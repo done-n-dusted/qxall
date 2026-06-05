@@ -223,7 +223,7 @@
 }
 
 .play-page__moves-wrapper--expanded {
-  max-height: 250px;
+  max-height: 180px;
   opacity: 1;
   margin-bottom: var(--space-2);
   visibility: visible;
@@ -246,7 +246,7 @@
 }
 
 .play-page__history-wrapper--expanded {
-  max-height: 400px;
+  max-height: 320px;
   opacity: 1;
   visibility: visible;
 }

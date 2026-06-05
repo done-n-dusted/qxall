@@ -115,8 +115,9 @@ export function PlayPage() {
                   {isGameOver ? 'Play Again' : 'New Game'}
                 </Button>
                 <Button
-                  variant={shouldShowHistory ? 'primary' : 'secondary'}
+                  variant={isGameActive && shouldShowHistory ? 'primary' : 'secondary'}
                   onClick={() => setShowHistory(prev => !prev)}
+                  disabled={!isGameActive}
                 >
                   {isGameActive && showHistory ? 'Show Moves' : 'Previous Games'}
                 </Button>
