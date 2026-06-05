@@ -4,10 +4,12 @@
    ========================================================================== */
 
 .app-layout {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   background: var(--color-background);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .app-layout__content {
@@ -16,6 +18,9 @@
   max-width: var(--max-width);
   margin-inline: auto;
   padding-inline: var(--margin-desktop);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 @media (max-width: 768px) {

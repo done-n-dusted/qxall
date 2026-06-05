@@ -6,9 +6,11 @@
 .move-list {
   border-radius: var(--rounded-xl);
   padding: var(--space-3);
-  max-height: 400px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
 }
 
 .move-list__header {
@@ -25,6 +27,9 @@
 .move-list__rows {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+  scroll-behavior: smooth;
 }
 
 .move-list__row {

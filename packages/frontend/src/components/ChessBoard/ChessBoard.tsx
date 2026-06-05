@@ -1,29 +1,7 @@
 import { useBoardState } from './useBoardState';
 import type { BoardState } from './useBoardState';
-import type { Piece } from 'chess.js';
 import './ChessBoard.css';
-
-/* ── Piece Unicode Map ── */
-const PIECE_UNICODE: Record<string, string> = {
-  // White pieces
-  wk: '\u2654', // ♔
-  wq: '\u2655', // ♕
-  wr: '\u2656', // ♖
-  wb: '\u2657', // ♗
-  wn: '\u2658', // ♘
-  wp: '\u2659', // ♙
-  // Black pieces
-  bk: '\u265A', // ♚
-  bq: '\u265B', // ♛
-  br: '\u265C', // ♜
-  bb: '\u265D', // ♝
-  bn: '\u265E', // ♞
-  bp: '\u265F', // ♟
-};
-
-function getPieceUnicode(piece: Piece): string {
-  return PIECE_UNICODE[`${piece.color}${piece.type}`] ?? '';
-}
+import { ChessPiece } from './ChessPieces';
 
 /* ── File & Rank helpers ── */
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
@@ -119,7 +97,9 @@ export function ChessBoard({ boardState: externalState }: ChessBoardProps) {
 
                 {/* Piece */}
                 {piece && (
-                  <span className="chess-piece">{getPieceUnicode(piece)}</span>
+                  <div className="chess-piece">
+                    <ChessPiece piece={piece} />
+                  </div>
                 )}
               </div>
             );
