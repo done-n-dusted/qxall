@@ -127,19 +127,24 @@
   --max-width: 1200px;
 
   /* ── Border Radius ── */
-  --rounded-sm: 0.25rem;
-  --rounded: 0.5rem;
-  --rounded-md: 0.75rem;
-  --rounded-lg: 1rem;
-  --rounded-xl: 1.5rem;
+  --rounded-sm: 0px;
+  --rounded: 0px;
+  --rounded-md: 0px;
+  --rounded-lg: 0px;
+  --rounded-xl: 0px;
   --rounded-full: 9999px;
+
+  /* ── Drop Shadows ── */
+  --shadow-sm: 2px 2px 0px rgba(0, 0, 0, 0.5);
+  --shadow-md: 4px 4px 0px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 8px 8px 0px rgba(0, 0, 0, 0.6);
 
   /* ── Elevation / Glassmorphism ── */
   --glass-blur: 16px;
   --glass-blur-elevated: 24px;
-  --glass-bg-opacity: 0.45;
-  --glass-bg-elevated-opacity: 0.55;
-  --glass-stroke-color: rgba(255, 255, 255, 0.15);
+  --glass-bg-opacity: 0.5;
+  --glass-bg-elevated-opacity: 0.6;
+  --glass-stroke-color: rgba(255, 255, 255, 0.22);
   --glass-stroke-width: 1px;
 
   /* ── Transitions ── */
