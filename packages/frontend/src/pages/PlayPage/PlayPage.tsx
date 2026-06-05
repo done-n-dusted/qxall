@@ -130,31 +130,6 @@ export function PlayPage() {
                 </div>
               </div>
 
-              {/* Quick-Start Actions */}
-              <div className="play-page__actions">
-                {isGameActive && !isGameOver ? (
-                  <>
-                    <Button variant="secondary" onClick={handleNewGame}>
-                      New Game
-                    </Button>
-                    <Button variant="secondary" onClick={() => setIsResigned(true)} className="play-page__btn-resign">
-                      Resign
-                    </Button>
-                    <Button variant="secondary" onClick={() => setIsDrawAgreed(true)}>
-                      Offer Draw
-                    </Button>
-                  </>
-                ) : isGameOver ? (
-                  <Button variant="primary" onClick={handleNewGame}>
-                    Play Again
-                  </Button>
-                ) : (
-                  <Button variant="primary" onClick={handleNewGame}>
-                    New Game
-                  </Button>
-                )}
-              </div>
-
               {/* Recent Games */}
               <div className={[
                 'play-page__section',
@@ -177,6 +152,31 @@ export function PlayPage() {
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* Quick-Start Actions */}
+            <div className="play-page__actions">
+              {isGameActive && !isGameOver ? (
+                <>
+                  <Button variant="secondary" onClick={() => setIsDrawAgreed(true)}>
+                    Offer Draw
+                  </Button>
+                  <Button variant="secondary" onClick={() => setIsResigned(true)} className="play-page__btn-resign">
+                    Resign
+                  </Button>
+                  <Button variant="secondary" onClick={handleNewGame}>
+                    New Game
+                  </Button>
+                </>
+              ) : isGameOver ? (
+                <Button variant="primary" onClick={handleNewGame}>
+                  Play Again
+                </Button>
+              ) : (
+                <Button variant="primary" onClick={handleNewGame}>
+                  New Game
+                </Button>
+              )}
             </div>
             
           </GlassCard>
