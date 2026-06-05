@@ -196,3 +196,16 @@
 .chess-square--legal-target:hover {
   filter: brightness(1.12);
 }
+
+/* ── Drag & Drop interactions ── */
+.chess-board,
+.chess-square {
+  touch-action: none; /* Prevent browser scrolling/zooming during drag interactions */
+}
+
+.chess-piece--dragging {
+  z-index: 100 !important;
+  transition: none !important; /* Disable transition during drag to prevent movement lag */
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.6)) !important;
+  opacity: 0.9;
+}
