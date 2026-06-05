@@ -150,11 +150,13 @@
 /* ── Quick-Start Actions ── */
 .play-page__actions {
   display: flex;
+  flex-direction: column;
   gap: var(--space-2);
+  width: 100%;
 }
 
 .play-page__actions > button {
-  flex: 1;
+  width: 100%;
 }
 
 /* ── Sections ── */
