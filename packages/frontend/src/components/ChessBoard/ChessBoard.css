@@ -72,9 +72,7 @@
   width: 100%;
   border-radius: var(--rounded);
   overflow: hidden;
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
   grid-row: 1;
   grid-column: 2;
 }

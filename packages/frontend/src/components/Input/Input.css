@@ -28,6 +28,7 @@
   line-height: var(--body-md-line-height);
   padding: 10px 14px;
   outline: none;
+  box-shadow: var(--shadow-sm);
   transition: border-color var(--transition-base);
 }
 
