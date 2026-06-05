@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Icon Component Styles
+   SVG icon wrapper with contrast stroke for visibility on varied backgrounds.
+   ========================================================================== */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Light variant: light fill with dark contrast stroke ── */
+.icon--light {
+  color: var(--color-icon-light);
+}
+
+.icon--light svg {
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.6));
+}
+
+/* ── Dark variant: dark fill with light contrast stroke ── */
+.icon--dark {
+  color: var(--color-icon-dark);
+}
+
+.icon--dark svg {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
+}

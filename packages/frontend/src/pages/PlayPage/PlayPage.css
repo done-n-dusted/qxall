@@ -1,0 +1,95 @@
+/* ==========================================================================
+   PlayPage
+   Two-column chess layout: board (left) + side panel (right).
+   ========================================================================== */
+
+.play-page {
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+.play-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--gutter-desktop);
+  align-items: start;
+}
+
+/* ── Board column ── */
+.play-page__board {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* ── Side Panel ── */
+.play-page__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+}
+
+.play-page__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+}
+
+/* ── Status bar ── */
+.play-page__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.play-page__turn-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--rounded-full);
+  border: 1px solid var(--color-outline-variant);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.play-page__turn-indicator--white {
+  background-color: var(--color-primary);
+}
+
+.play-page__turn-indicator--black {
+  background-color: var(--color-surface-container-lowest);
+}
+
+.play-page__status-text {
+  font-size: var(--body-md-size);
+  color: var(--color-on-surface-variant);
+}
+
+/* ── Move list wrapper — fill remaining space ── */
+.play-page__moves {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* ── New Game button pushed to bottom ── */
+.play-page__new-game {
+  margin-top: auto;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .play-page {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-3);
+  }
+
+  .play-page__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .play-page__board {
+    width: 100%;
+  }
+}

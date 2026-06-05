@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Input Component Styles
+   Minimalist glass-style input with focus border transition.
+   ========================================================================== */
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  line-height: var(--label-sm-line-height);
+  letter-spacing: var(--label-sm-letter-spacing);
+  color: var(--color-on-surface-variant);
+}
+
+.input-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--rounded);
+  color: var(--color-on-surface);
+  font-family: var(--font-family);
+  font-size: var(--body-md-size);
+  line-height: var(--body-md-line-height);
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color var(--transition-base);
+}
+
+.input-field::placeholder {
+  color: var(--color-outline);
+  opacity: 0.7;
+}
+
+.input-field:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+}

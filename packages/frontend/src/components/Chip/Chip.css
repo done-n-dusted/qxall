@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Chip Component Styles
+   Small pill-shaped element with optional active state.
+   ========================================================================== */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--rounded-full);
+  background: rgba(64, 74, 90, 0.3);
+  color: var(--color-secondary);
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  line-height: var(--label-sm-line-height);
+  letter-spacing: var(--label-sm-letter-spacing);
+  padding: 4px 12px;
+  white-space: nowrap;
+  user-select: none;
+  transition: background var(--transition-base);
+}
+
+.chip--active {
+  background: rgba(64, 74, 90, 0.55);
+}

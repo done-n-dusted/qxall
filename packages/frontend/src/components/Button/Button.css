@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Button Component Styles
+   Three variants: primary, secondary, ghost.
+   Hover indicated by opacity/luminosity shifts only — no color changes.
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  border: none;
+  border-radius: var(--rounded);
+  font-family: var(--font-family);
+  font-weight: var(--label-md-weight);
+  letter-spacing: var(--label-md-letter-spacing);
+  cursor: pointer;
+  transition: background var(--transition-base),
+              opacity var(--transition-base),
+              filter var(--transition-base);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Sizes ── */
+.btn--sm {
+  font-size: var(--label-sm-size);
+  line-height: var(--label-sm-line-height);
+  padding: 6px 14px;
+}
+
+.btn--md {
+  font-size: var(--label-md-size);
+  line-height: var(--label-md-line-height);
+  padding: 10px 20px;
+}
+
+/* ── Primary variant ── */
+.btn--primary {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary);
+}
+
+.btn--primary:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.btn--primary:active:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+/* ── Secondary variant ── */
+.btn--secondary {
+  background: rgba(23, 31, 51, var(--glass-bg-opacity));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-stroke-color);
+  color: var(--color-on-surface);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: rgba(23, 31, 51, 0.65);
+}
+
+.btn--secondary:active:not(:disabled) {
+  background: rgba(23, 31, 51, 0.75);
+}
+
+/* ── Ghost variant ── */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-on-surface);
+}
+
+.btn--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn--ghost:active:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Disabled state ── */
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: none;
+}

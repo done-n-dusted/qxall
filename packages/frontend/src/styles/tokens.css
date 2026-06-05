@@ -1,0 +1,149 @@
+/* ==========================================================================
+   qxall Design Tokens
+   All design tokens as CSS custom properties, derived from the design system.
+   ========================================================================== */
+
+:root {
+  /* ── Colors ── */
+  --color-surface: #0b1326;
+  --color-surface-dim: #0b1326;
+  --color-surface-bright: #31394e;
+  --color-surface-container-lowest: #060d20;
+  --color-surface-container-low: #131b2e;
+  --color-surface-container: #171f33;
+  --color-surface-container-high: #222a3e;
+  --color-surface-container-highest: #2d3449;
+  --color-on-surface: #dbe2fd;
+  --color-on-surface-variant: #c5c6ca;
+  --color-inverse-surface: #dbe2fd;
+  --color-inverse-on-surface: #283044;
+  --color-outline: #8f9194;
+  --color-outline-variant: #44474a;
+  --color-surface-tint: #c3c7cd;
+  --color-surface-variant: #2d3449;
+
+  --color-primary: #eef1f7;
+  --color-on-primary: #2c3136;
+  --color-primary-container: #d1d5db;
+  --color-on-primary-container: #585c61;
+  --color-inverse-primary: #5a5f64;
+
+  --color-secondary: #bdc7db;
+  --color-on-secondary: #273140;
+  --color-secondary-container: #404a5a;
+  --color-on-secondary-container: #afb9cc;
+
+  --color-tertiary: #eff1f5;
+  --color-on-tertiary: #2d3134;
+  --color-tertiary-container: #d3d5d9;
+  --color-on-tertiary-container: #595c60;
+
+  --color-error: #ffb4ab;
+  --color-on-error: #690005;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+
+  --color-primary-fixed: #dfe3e9;
+  --color-primary-fixed-dim: #c3c7cd;
+  --color-on-primary-fixed: #171c20;
+  --color-on-primary-fixed-variant: #43474c;
+
+  --color-secondary-fixed: #d9e3f7;
+  --color-secondary-fixed-dim: #bdc7db;
+  --color-on-secondary-fixed: #121c2a;
+  --color-on-secondary-fixed-variant: #3d4757;
+
+  --color-tertiary-fixed: #e0e2e6;
+  --color-tertiary-fixed-dim: #c4c7ca;
+  --color-on-tertiary-fixed: #191c1f;
+  --color-on-tertiary-fixed-variant: #44474a;
+
+  --color-background: #0b1326;
+  --color-on-background: #dbe2fd;
+
+  /* ── Board Colors ── */
+  --color-board-light: #d1d5db;
+  --color-board-dark: #374151;
+  --color-board-active-glow: rgba(255, 255, 255, 0.9);
+
+  /* ── Icon Colors ── */
+  --color-icon-light: #e5e7eb;
+  --color-icon-dark: #1f2937;
+
+  /* ── Typography ── */
+  --font-family: 'Plus Jakarta Sans', sans-serif;
+
+  /* headline-lg */
+  --headline-lg-size: 40px;
+  --headline-lg-weight: 700;
+  --headline-lg-line-height: 48px;
+  --headline-lg-letter-spacing: -0.02em;
+
+  /* headline-lg-mobile */
+  --headline-lg-mobile-size: 32px;
+  --headline-lg-mobile-weight: 700;
+  --headline-lg-mobile-line-height: 38px;
+  --headline-lg-mobile-letter-spacing: -0.02em;
+
+  /* headline-md */
+  --headline-md-size: 24px;
+  --headline-md-weight: 600;
+  --headline-md-line-height: 32px;
+
+  /* body-lg */
+  --body-lg-size: 18px;
+  --body-lg-weight: 400;
+  --body-lg-line-height: 28px;
+
+  /* body-md */
+  --body-md-size: 16px;
+  --body-md-weight: 400;
+  --body-md-line-height: 24px;
+
+  /* label-md */
+  --label-md-size: 14px;
+  --label-md-weight: 600;
+  --label-md-line-height: 20px;
+  --label-md-letter-spacing: 0.05em;
+
+  /* label-sm */
+  --label-sm-size: 12px;
+  --label-sm-weight: 500;
+  --label-sm-line-height: 16px;
+  --label-sm-letter-spacing: 0.03em;
+
+  /* ── Spacing ── */
+  --space-unit: 8px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --gutter-desktop: 24px;
+  --margin-desktop: 48px;
+  --gutter-mobile: 16px;
+  --margin-mobile: 16px;
+  --max-width: 1200px;
+
+  /* ── Border Radius ── */
+  --rounded-sm: 0.25rem;
+  --rounded: 0.5rem;
+  --rounded-md: 0.75rem;
+  --rounded-lg: 1rem;
+  --rounded-xl: 1.5rem;
+  --rounded-full: 9999px;
+
+  /* ── Elevation / Glassmorphism ── */
+  --glass-blur: 16px;
+  --glass-blur-elevated: 24px;
+  --glass-bg-opacity: 0.45;
+  --glass-bg-elevated-opacity: 0.55;
+  --glass-stroke-color: rgba(255, 255, 255, 0.15);
+  --glass-stroke-width: 1px;
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}

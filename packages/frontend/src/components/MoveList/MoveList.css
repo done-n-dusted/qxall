@@ -1,0 +1,91 @@
+/* ==========================================================================
+   MoveList Component
+   Displays chess move history in paired rows with glass card styling.
+   ========================================================================== */
+
+.move-list {
+  border-radius: var(--rounded-xl);
+  padding: var(--space-3);
+  max-height: 400px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.move-list__header {
+  font-size: var(--label-md-size);
+  font-weight: var(--label-md-weight);
+  line-height: var(--label-md-line-height);
+  letter-spacing: var(--label-md-letter-spacing);
+  color: var(--color-on-surface-variant);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: var(--space-1);
+}
+
+.move-list__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.move-list__row {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr;
+  align-items: center;
+  padding: var(--space-1) var(--space-1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--rounded-sm);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.move-list__row:last-child {
+  border-bottom: none;
+}
+
+.move-list__row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.move-list__move-number {
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  line-height: var(--label-sm-line-height);
+  letter-spacing: var(--label-sm-letter-spacing);
+  color: var(--color-outline);
+  user-select: none;
+}
+
+.move-list__move {
+  font-size: var(--body-md-size);
+  font-weight: var(--body-md-weight);
+  line-height: var(--body-md-line-height);
+  color: var(--color-on-surface);
+  padding: 4px 8px;
+  border-radius: var(--rounded-sm);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+}
+
+.move-list__move:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.move-list__move--active {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-primary);
+}
+
+.move-list__move--empty {
+  pointer-events: none;
+}
+
+/* ── Empty state ── */
+.move-list__empty {
+  text-align: center;
+  padding: var(--space-4) var(--space-2);
+  color: var(--color-outline);
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  letter-spacing: var(--label-sm-letter-spacing);
+}

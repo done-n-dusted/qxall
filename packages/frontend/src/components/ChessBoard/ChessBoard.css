@@ -1,0 +1,191 @@
+/* ==========================================================================
+   ChessBoard Component Styles
+   Premium dark glassmorphic chess board with smooth interactions.
+   ========================================================================== */
+
+/* ── Board Wrapper (includes labels) ── */
+.chess-board-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 0;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Rank Labels (left side, a-h from top to bottom = 8 to 1) ── */
+.chess-board-rank-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-right: 6px;
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.chess-board-rank-label {
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  line-height: var(--label-sm-line-height);
+  letter-spacing: var(--label-sm-letter-spacing);
+  color: var(--color-on-surface-variant);
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* ── File Labels (bottom, a through h) ── */
+.chess-board-file-labels {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 4px;
+  grid-row: 2;
+  grid-column: 2;
+}
+
+.chess-board-file-label {
+  font-size: var(--label-sm-size);
+  font-weight: var(--label-sm-weight);
+  line-height: var(--label-sm-line-height);
+  letter-spacing: var(--label-sm-letter-spacing);
+  color: var(--color-on-surface-variant);
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* ── Board Container ── */
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: var(--rounded);
+  overflow: hidden;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.3);
+  grid-row: 1;
+  grid-column: 2;
+}
+
+/* ── Square Base ── */
+.chess-square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+/* ── Square Colors ── */
+.chess-square--light {
+  background-color: var(--color-board-light);
+}
+
+.chess-square--dark {
+  background-color: var(--color-board-dark);
+}
+
+/* ── Selected Square ── */
+.chess-square--selected.chess-square--light {
+  background-color: color-mix(in srgb, var(--color-board-light) 80%, white);
+}
+
+.chess-square--selected.chess-square--dark {
+  background-color: color-mix(in srgb, var(--color-board-dark) 80%, white);
+}
+
+/* ── Last Move / Active Square ── */
+.chess-square--active {
+  box-shadow: inset 0 0 0 2px var(--color-board-active-glow);
+}
+
+/* ── Check Indicator ── */
+.chess-square--check {
+  background: radial-gradient(
+    circle at center,
+    rgba(239, 68, 68, 0.5) 0%,
+    rgba(239, 68, 68, 0.2) 40%,
+    transparent 70%
+  );
+}
+
+.chess-square--check.chess-square--light {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(239, 68, 68, 0.5) 0%,
+      rgba(239, 68, 68, 0.2) 40%,
+      transparent 70%
+    ),
+    var(--color-board-light);
+}
+
+.chess-square--check.chess-square--dark {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(239, 68, 68, 0.5) 0%,
+      rgba(239, 68, 68, 0.2) 40%,
+      transparent 70%
+    ),
+    var(--color-board-dark);
+}
+
+/* ── Piece ── */
+.chess-piece {
+  font-size: clamp(1.5rem, 5.5vw, 4rem);
+  line-height: 1;
+  z-index: 1;
+  transition: transform var(--transition-fast);
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.chess-square:hover .chess-piece {
+  transform: scale(1.05);
+}
+
+/* ── Legal Move Indicators ── */
+
+/* Dot for empty target squares */
+.chess-legal-dot {
+  position: absolute;
+  width: 25%;
+  height: 25%;
+  border-radius: var(--rounded-full);
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Ring for capture squares */
+.chess-square--capture-target {
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+}
+
+/* Combine capture ring with active glow if both apply */
+.chess-square--capture-target.chess-square--active {
+  box-shadow:
+    inset 0 0 0 2px var(--color-board-active-glow),
+    inset 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+/* ── Hover state for interactive squares ── */
+.chess-square--has-piece:hover {
+  filter: brightness(1.08);
+}
+
+.chess-square--legal-target:hover {
+  filter: brightness(1.12);
+}

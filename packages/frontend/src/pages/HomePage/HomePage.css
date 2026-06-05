@@ -1,0 +1,95 @@
+/* ==========================================================================
+   HomePage
+   Zen hero, quick-start actions, and recent games grid.
+   ========================================================================== */
+
+.home-page {
+  padding-top: 80px;
+  padding-bottom: var(--space-6);
+}
+
+/* ── Hero ── */
+.home-hero {
+  margin-bottom: var(--space-6);
+}
+
+.home-hero__headline {
+  margin-bottom: var(--space-3);
+}
+
+.home-hero__subtitle {
+  color: var(--color-on-surface-variant);
+  max-width: 560px;
+}
+
+/* ── Quick-Start Buttons ── */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: 80px;
+}
+
+/* ── Recent Games ── */
+.home-recent {
+  /* generous spacing above */
+}
+
+.home-recent__heading {
+  margin-bottom: var(--space-3);
+}
+
+.home-recent__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter-desktop);
+}
+
+/* ── Individual Recent Game Card ── */
+.home-game-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.home-game-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-game-card__opponent {
+  font-size: var(--body-md-size);
+  font-weight: var(--headline-md-weight);
+  color: var(--color-on-surface);
+}
+
+.home-game-card__opening {
+  font-size: var(--label-sm-size);
+  color: var(--color-on-surface-variant);
+  margin-top: 2px;
+}
+
+.home-game-card__date {
+  font-size: var(--label-sm-size);
+  color: var(--color-outline);
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .home-page {
+    padding-top: var(--space-6);
+  }
+
+  .home-actions {
+    flex-direction: column;
+    margin-bottom: var(--space-6);
+  }
+
+  .home-recent__grid {
+    grid-template-columns: 1fr;
+    gap: var(--gutter-mobile);
+  }
+}
