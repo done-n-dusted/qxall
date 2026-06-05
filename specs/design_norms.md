@@ -88,3 +88,21 @@ This document establishes the UI/UX design norms and visual guidelines for the *
                 visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     ```
   - Collapsed wrappers use `display: none` to completely clear layout footprint and pointer interactions.
+
+---
+
+## 8. Icon and Button Guidelines
+- **Icon Source**:
+  - All icons are standardized and sourced from the **Lucide** icons package (`lucide-react`). Custom SVG graphics should follow the Lucide style: a consistent `2px` stroke width, open paths, and rounded caps/corners.
+- **Button Sizing & Layout**:
+  - Render icons directly inside the button component as a prefix (on the left side of the label text).
+  - Align icon and text using a strict flex/inline-flex container with a gap of exactly `8px` (`var(--space-1)`).
+  - Buttons must use `currentColor` to style the icon so that icon and text colors transition in perfect synchrony during hover, focus, active, and disabled states.
+  - Standard button icons must be sized to exactly `16px` with a `2px` stroke weight. Larger navigation/header controls may use `18px` or `20px` icons.
+- **Icon Semantics**:
+  - **New Game**: `Plus` (or `Play`) icon.
+  - **Play Again**: `RotateCcw` icon.
+  - **Resign**: `Flag` icon (with contextual red hover states).
+  - **Offer Draw**: `Handshake` icon.
+  - **Previous Games**: `History` icon.
+  - **Show Moves**: `List` icon.
