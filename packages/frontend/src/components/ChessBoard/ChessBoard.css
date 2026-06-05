@@ -144,6 +144,12 @@
     var(--color-board-dark);
 }
 
+/* ── Checkmate Indicator (Vibrant Red Full Cell Glow) ── */
+.chess-square--checkmate {
+  background-color: rgba(239, 68, 68, 0.35) !important;
+  box-shadow: inset 0 0 24px rgba(239, 68, 68, 0.75) !important;
+}
+
 /* ── Piece ── */
 .chess-piece {
   width: 90%;

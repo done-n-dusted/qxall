@@ -18,6 +18,7 @@ This document establishes the UI/UX design norms and visual guidelines for the *
   - **Board Colors**: Light squares (`#d1d5db`), Dark squares (`#374151`).
 - **Glow & Accent Colors**:
   - **King in Check**: A bright neon-pink radial gradient (`rgba(236, 72, 153, 0.65)` transitioning to transparent).
+  - **King in Checkmate**: A vibrant red full-cell background (`rgba(239, 68, 68, 0.35)`) and a strong red inner shadow (`rgba(239, 68, 68, 0.75)` inset) covering the entire square.
   - **Active/Last Move Square**: Pure white 2px inner-glow inset box shadow (`rgba(255, 255, 255, 0.9)`).
   - **Active Moves / Actions**: High-luminosity off-white overlays.
   - **Resign Buttons**: Error red (`var(--color-error)` / `#ffb4ab`) at low opacities with hover transitions.

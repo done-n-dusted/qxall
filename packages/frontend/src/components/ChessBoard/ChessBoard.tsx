@@ -174,12 +174,15 @@ export function ChessBoard({ boardState: externalState }: ChessBoardProps) {
                 }
               : undefined;
 
+            const isCheckmateSquare = state.isCheckmate && isCheckSquare;
+
             const classNames = [
               'chess-square',
               isLight ? 'chess-square--light' : 'chess-square--dark',
               isSelected && 'chess-square--selected',
               isActive && 'chess-square--active',
-              isCheckSquare && 'chess-square--check',
+              isCheckSquare && !isCheckmateSquare && 'chess-square--check',
+              isCheckmateSquare && 'chess-square--checkmate',
               hasPiece && 'chess-square--has-piece',
               isLegalTarget && 'chess-square--legal-target',
               isCaptureTarget && 'chess-square--capture-target',
