@@ -213,6 +213,51 @@
   color: var(--color-outline);
 }
 
+/* ── Move list wrapper transitions ── */
+.play-page__moves-wrapper {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.play-page__moves-wrapper--expanded {
+  max-height: 250px;
+  opacity: 1;
+  margin-bottom: var(--space-2);
+  visibility: visible;
+}
+
+.play-page__moves-wrapper--collapsed {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* ── Recent Games History transitions ── */
+.play-page__history-wrapper {
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.play-page__history-wrapper--expanded {
+  max-height: 400px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.play-page__history-wrapper--collapsed {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* ── Responsive adjustments (retaining 70-30 board-left split) ── */
 @media (max-width: 768px) {
   .play-page {
