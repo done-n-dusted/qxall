@@ -33,3 +33,6 @@ npm-debug.log*
 # Testing
 coverage/
 .nyc_output/
+
+# Brainstorming Visual Companion
+.superpowers/
