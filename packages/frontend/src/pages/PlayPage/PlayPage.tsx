@@ -2,7 +2,17 @@ import { useState } from 'react';
 import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
 import './PlayPage.css';
 
-function getStatusText(boardState: ReturnType<typeof useBoardState>): string {
+function getStatusText(
+  boardState: ReturnType<typeof useBoardState>,
+  isResigned: boolean,
+  isDrawAgreed: boolean
+): string {
+  if (isResigned) {
+    return `Resigned - ${boardState.turn === 'w' ? 'Black' : 'White'} wins!`;
+  }
+  if (isDrawAgreed) {
+    return 'Draw by agreement';
+  }
   if (boardState.isCheckmate) return 'Checkmate!';
   if (boardState.isStalemate) return 'Stalemate';
   if (boardState.isDraw) return 'Draw';
@@ -35,8 +45,11 @@ const RECENT_GAMES = [
 
 export function PlayPage() {
   const boardState = useBoardState();
-  const statusText = getStatusText(boardState);
-  const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw;
+  const [isResigned, setIsResigned] = useState(false);
+  const [isDrawAgreed, setIsDrawAgreed] = useState(false);
+
+  const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw || isResigned || isDrawAgreed;
+  const statusText = getStatusText(boardState, isResigned, isDrawAgreed);
 
   const [showHistory, setShowHistory] = useState(false);
   const [prevHistoryLength, setPrevHistoryLength] = useState(boardState.moveHistory.length);
@@ -55,14 +68,22 @@ export function PlayPage() {
   const handleNewGame = () => {
     boardState.reset();
     setShowHistory(false);
+    setIsResigned(false);
+    setIsDrawAgreed(false);
   };
+
+  const handleSelectSquare = (square: string) => {
+    if (isGameOver) return;
+    boardState.selectSquare(square);
+  };
+
 
   return (
     <div className="play-page">
       <div className="play-page__grid">
         {/* Board (Always on the Left) */}
         <div className="play-page__board">
-          <ChessBoard boardState={boardState} />
+          <ChessBoard boardState={{ ...boardState, selectSquare: handleSelectSquare }} />
         </div>
 
         {/* Side Panel / Launcher (Always on the Right) */}
@@ -86,7 +107,10 @@ export function PlayPage() {
             </div>
 
             {/* Scrollable Panel Content (to keep viewport locked) */}
-            <div className="play-page__content-scrollable">
+            <div className={[
+              'play-page__content-scrollable',
+              shouldShowHistory ? 'play-page__content-scrollable--scrollable' : ''
+            ].filter(Boolean).join(' ')}>
               {/* Move List */}
               <div className="play-page__section">
                 <div className={[
@@ -108,19 +132,27 @@ export function PlayPage() {
 
               {/* Quick-Start Actions */}
               <div className="play-page__actions">
-                <Button
-                  variant="primary"
-                  onClick={handleNewGame}
-                >
-                  {isGameOver ? 'Play Again' : 'New Game'}
-                </Button>
-                <Button
-                  variant={isGameActive && shouldShowHistory ? 'primary' : 'secondary'}
-                  onClick={() => setShowHistory(prev => !prev)}
-                  disabled={!isGameActive}
-                >
-                  {isGameActive && showHistory ? 'Show Moves' : 'Previous Games'}
-                </Button>
+                {isGameActive && !isGameOver ? (
+                  <>
+                    <Button variant="secondary" onClick={handleNewGame}>
+                      New Game
+                    </Button>
+                    <Button variant="secondary" onClick={() => setIsResigned(true)} className="play-page__btn-resign">
+                      Resign
+                    </Button>
+                    <Button variant="secondary" onClick={() => setIsDrawAgreed(true)}>
+                      Offer Draw
+                    </Button>
+                  </>
+                ) : isGameOver ? (
+                  <Button variant="primary" onClick={handleNewGame}>
+                    Play Again
+                  </Button>
+                ) : (
+                  <Button variant="primary" onClick={handleNewGame}>
+                    New Game
+                  </Button>
+                )}
               </div>
 
               {/* Recent Games */}
