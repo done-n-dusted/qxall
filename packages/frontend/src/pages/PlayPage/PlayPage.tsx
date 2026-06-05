@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
 import './PlayPage.css';
 
@@ -37,6 +38,25 @@ export function PlayPage() {
   const statusText = getStatusText(boardState);
   const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw;
 
+  const [showHistory, setShowHistory] = useState(false);
+  const [prevHistoryLength, setPrevHistoryLength] = useState(boardState.moveHistory.length);
+
+  if (boardState.moveHistory.length !== prevHistoryLength) {
+    setPrevHistoryLength(boardState.moveHistory.length);
+    if (boardState.moveHistory.length > 0) {
+      setShowHistory(false);
+    }
+  }
+
+  const isGameActive = boardState.moveHistory.length > 0;
+  const shouldShowHistory = !isGameActive || showHistory;
+  const shouldShowMoves = isGameActive && !showHistory;
+
+  const handleNewGame = () => {
+    boardState.reset();
+    setShowHistory(false);
+  };
+
   return (
     <div className="play-page">
       <div className="play-page__grid">
@@ -69,15 +89,20 @@ export function PlayPage() {
             <div className="play-page__content-scrollable">
               {/* Move List */}
               <div className="play-page__section">
-                <div className="play-page__moves">
-                  <MoveList
-                    moves={boardState.moveHistory}
-                    currentMoveIndex={
-                      boardState.moveHistory.length > 0
-                        ? boardState.moveHistory.length - 1
-                        : undefined
-                    }
-                  />
+                <div className={[
+                  'play-page__moves-wrapper',
+                  shouldShowMoves ? 'play-page__moves-wrapper--expanded' : 'play-page__moves-wrapper--collapsed'
+                ].join(' ')}>
+                  <div className="play-page__moves">
+                    <MoveList
+                      moves={boardState.moveHistory}
+                      currentMoveIndex={
+                        boardState.moveHistory.length > 0
+                          ? boardState.moveHistory.length - 1
+                          : undefined
+                      }
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -85,17 +110,24 @@ export function PlayPage() {
               <div className="play-page__actions">
                 <Button
                   variant="primary"
-                  onClick={() => boardState.reset()}
+                  onClick={handleNewGame}
                 >
                   {isGameOver ? 'Play Again' : 'New Game'}
                 </Button>
-                <Button variant="secondary" onClick={() => boardState.reset()}>
-                  Explore Openings
+                <Button
+                  variant={shouldShowHistory ? 'primary' : 'secondary'}
+                  onClick={() => setShowHistory(prev => !prev)}
+                >
+                  {isGameActive && showHistory ? 'Show Moves' : 'Previous Games'}
                 </Button>
               </div>
 
               {/* Recent Games */}
-              <div className="play-page__section">
+              <div className={[
+                'play-page__section',
+                'play-page__history-wrapper',
+                shouldShowHistory ? 'play-page__history-wrapper--expanded' : 'play-page__history-wrapper--collapsed'
+              ].join(' ')}>
                 <h3 className="play-page__section-title">Recent Games</h3>
                 <div className="play-page__recent-list">
                   {RECENT_GAMES.map((game) => (
