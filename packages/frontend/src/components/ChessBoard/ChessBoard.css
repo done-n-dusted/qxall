@@ -148,8 +148,8 @@
 
 /* ── Piece ── */
 .chess-piece {
-  width: 70%;
-  height: 70%;
+  width: 90%;
+  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
