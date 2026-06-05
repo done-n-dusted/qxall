@@ -71,44 +71,44 @@
   --color-icon-dark: #1f2937;
 
   /* ── Typography ── */
-  --font-family: 'Plus Jakarta Sans', sans-serif;
+  --font-family: 'Inter', sans-serif;
 
   /* headline-lg */
   --headline-lg-size: 40px;
-  --headline-lg-weight: 700;
+  --headline-lg-weight: 800;
   --headline-lg-line-height: 48px;
   --headline-lg-letter-spacing: -0.02em;
 
   /* headline-lg-mobile */
   --headline-lg-mobile-size: 32px;
-  --headline-lg-mobile-weight: 700;
+  --headline-lg-mobile-weight: 800;
   --headline-lg-mobile-line-height: 38px;
   --headline-lg-mobile-letter-spacing: -0.02em;
 
   /* headline-md */
   --headline-md-size: 24px;
-  --headline-md-weight: 600;
+  --headline-md-weight: 700;
   --headline-md-line-height: 32px;
 
   /* body-lg */
   --body-lg-size: 18px;
-  --body-lg-weight: 400;
+  --body-lg-weight: 500;
   --body-lg-line-height: 28px;
 
   /* body-md */
   --body-md-size: 16px;
-  --body-md-weight: 400;
+  --body-md-weight: 500;
   --body-md-line-height: 24px;
 
   /* label-md */
   --label-md-size: 14px;
-  --label-md-weight: 600;
+  --label-md-weight: 700;
   --label-md-line-height: 20px;
   --label-md-letter-spacing: 0.05em;
 
   /* label-sm */
   --label-sm-size: 12px;
-  --label-sm-weight: 500;
+  --label-sm-weight: 600;
   --label-sm-line-height: 16px;
   --label-sm-letter-spacing: 0.03em;
 
