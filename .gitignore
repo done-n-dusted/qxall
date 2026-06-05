@@ -39,3 +39,6 @@ coverage/
 
 # Superpowers Specs and Plans
 docs/superpowers/
+
+# Git Worktrees
+.worktrees/
