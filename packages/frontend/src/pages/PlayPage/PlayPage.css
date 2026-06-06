@@ -47,56 +47,110 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-}
-
-.play-page__panel-inner {
-  height: 100%;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
   gap: var(--space-3);
   box-sizing: border-box;
 }
 
-/* ── Zen Heading & Status ── */
-.play-page__header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: var(--space-2);
+/* ── Floating Cards ── */
+.play-page__info-card,
+.play-page__middle-card,
+.play-page__actions-card {
+  background: rgba(23, 31, 51, var(--glass-bg-opacity));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-top: var(--glass-stroke-width) solid var(--glass-stroke-color);
+  border-left: var(--glass-stroke-width) solid var(--glass-stroke-color);
+  border-right: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.05);
+  border-bottom: var(--glass-stroke-width) solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--rounded-xl);
 }
 
-.play-page__title {
-  font-size: var(--body-lg-size);
-  font-weight: var(--headline-md-weight);
+.play-page__middle-card {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Player Timer Info (Card 1) ── */
+.play-page__player-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.play-page__player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2);
+  border-radius: var(--rounded-md);
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.play-page__player-row--active {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.play-page__player-row--inactive {
+  opacity: 0.65;
+}
+
+.play-page__player-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--body-md-size);
+  font-weight: var(--label-md-weight);
   color: var(--color-on-surface);
-  margin: 0;
-  letter-spacing: -0.01em;
+}
+
+.play-page__player-turn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--rounded-full);
+  background-color: var(--color-primary);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all var(--transition-fast);
+}
+
+.play-page__player-row--active .play-page__player-turn-dot {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 8px var(--color-primary);
+}
+
+.play-page__timer {
+  font-family: monospace;
+  font-size: var(--body-lg-size);
+  font-weight: var(--label-md-weight);
+  color: var(--color-on-surface-variant);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--rounded-md);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-fast);
+}
+
+.play-page__timer--active {
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  animation: play-page__pulse-timer 1.5s infinite alternate ease-in-out;
 }
 
 .play-page__status {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-}
-
-.play-page__turn-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: var(--rounded-full);
-  border: 1px solid var(--color-outline-variant);
-  flex-shrink: 0;
-  transition: background-color var(--transition-fast);
-}
-
-.play-page__turn-indicator--white {
-  background-color: var(--color-primary);
-}
-
-.play-page__turn-indicator--black {
-  background-color: var(--color-surface-container-lowest);
+  justify-content: center;
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .play-page__status-text {
@@ -104,62 +158,55 @@
   color: var(--color-on-surface-variant);
 }
 
-/* ── Scrollable Launcher Area ── */
-.play-page__content-scrollable {
+@keyframes play-page__pulse-timer {
+  0% {
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  }
+}
+
+/* ── Middle Scroller (Card 2) ── */
+.play-page__middle-scroller {
   flex: 1;
-  overflow-y: hidden; /* Default to hidden to lock the outer viewport when active moves list is visible */
+  overflow-y: auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  min-height: 0;
+  gap: var(--space-2);
   padding-right: 4px;
 }
 
-.play-page__content-scrollable--scrollable {
-  overflow-y: auto; /* Allow scrolling when recent games are visible */
-}
-
-/* Scrollbar styles for glass card scroller */
-.play-page__content-scrollable::-webkit-scrollbar {
+/* Custom scrollbars for the middle scroller */
+.play-page__middle-scroller::-webkit-scrollbar {
   width: 6px;
 }
 
-.play-page__content-scrollable::-webkit-scrollbar-track {
+.play-page__middle-scroller::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.01);
   border-radius: var(--rounded-full);
 }
 
-.play-page__content-scrollable::-webkit-scrollbar-thumb {
+.play-page__middle-scroller::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--rounded-full);
+  transition: background var(--transition-fast);
 }
 
-.play-page__content-scrollable::-webkit-scrollbar-thumb:hover {
+.play-page__middle-scroller::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.16);
 }
 
-/* ── Move list wrapper — fill remaining space ── */
 .play-page__moves {
   flex: 1;
   min-height: 160px;
-  height: auto; /* Flex height */
+  height: auto;
   display: flex;
   flex-direction: column;
 }
 
-/* ── Quick-Start Actions ── */
-.play-page__actions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  width: 100%;
-}
-
-.play-page__actions > button {
-  width: 100%;
-}
-
-/* ── Sections ── */
+/* ── Recent Games List ── */
 .play-page__section {
   display: flex;
   flex-direction: column;
@@ -177,7 +224,6 @@
   padding-bottom: 2px;
 }
 
-/* ── Recent Games List ── */
 .play-page__recent-list {
   display: flex;
   flex-direction: column;
@@ -222,45 +268,16 @@
   color: var(--color-outline);
 }
 
-/* ── Move list wrapper transitions ── */
-.play-page__moves-wrapper {
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+/* ── Actions (Card 3) ── */
+.play-page__actions {
   display: flex;
   flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
 }
 
-.play-page__moves-wrapper--expanded {
-  flex: 1 1 0%;
-  min-height: 0;
-  opacity: 1;
-  margin-bottom: var(--space-2);
-  visibility: visible;
-}
-
-.play-page__moves-wrapper--collapsed {
-  display: none;
-}
-
-/* ── Recent Games History transitions ── */
-.play-page__history-wrapper {
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-}
-
-.play-page__history-wrapper--expanded {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 0%;
-  min-height: 0;
-  opacity: 1;
-  visibility: visible;
-}
-
-.play-page__history-wrapper--collapsed {
-  display: none;
+.play-page__actions > button {
+  width: 100%;
 }
 
 .play-page__btn-resign {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useBoardState } from './useBoardState';
 import type { BoardState } from './useBoardState';
 import './ChessBoard.css';
@@ -20,7 +20,7 @@ interface ChessBoardProps {
   boardState?: BoardState & { checkSquare?: string };
 }
 
-export function ChessBoard({ boardState: externalState }: ChessBoardProps) {
+export const ChessBoard = React.memo(function ChessBoard({ boardState: externalState }: ChessBoardProps) {
   const internalState = useBoardState();
   const state = (externalState ?? internalState) as BoardState & {
     checkSquare?: string;
@@ -246,4 +246,4 @@ export function ChessBoard({ boardState: externalState }: ChessBoardProps) {
       </div>
     </div>
   );
-}
+});

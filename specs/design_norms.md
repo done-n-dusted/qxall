@@ -106,3 +106,15 @@ This document establishes the UI/UX design norms and visual guidelines for the *
   - **Offer Draw**: `Handshake` icon.
   - **Previous Games**: `History` icon.
   - **Show Moves**: `List` icon.
+
+---
+
+## 9. Floating Side Panel & Active Game UI
+- **Panel Architecture (Triple Stack)**:
+  - The launcher is segmented into three independent floating `GlassCard` containers instead of a single side panel.
+  - Card 1 (Game Info) displays players and timers, Card 2 (Moves/Recent Games) displays gameplay context, and Card 3 (Actions) presents context-driven options.
+- **Ticking Player Timers**:
+  - Show White and Black timers in `MM:SS` format.
+  - Highlight the active player's timer with a light blue glowing background (`#38bdf8` at low opacity) and show a glowing active turn indicator dot.
+- **Automated Context Switching**:
+  - The moves list and recent games list automatically switch context based on the active game state. The manual toggle button is hidden to ensure focused attention during the game.
