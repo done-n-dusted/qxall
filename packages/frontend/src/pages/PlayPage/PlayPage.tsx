@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
-import { Plus, RotateCcw, Flag, Handshake, History, List } from 'lucide-react';
+import { Plus, RotateCcw, Flag, Handshake } from 'lucide-react';
 import './PlayPage.css';
 
 function getStatusText(
@@ -18,6 +18,12 @@ function getStatusText(
   if (boardState.isStalemate) return 'Stalemate';
   if (boardState.isDraw) return 'Draw';
   return boardState.turn === 'w' ? 'White to move' : 'Black to move';
+}
+
+function formatTime(seconds: number): string {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 const RECENT_GAMES = [
@@ -48,36 +54,39 @@ export function PlayPage() {
   const boardState = useBoardState();
   const [isResigned, setIsResigned] = useState(false);
   const [isDrawAgreed, setIsDrawAgreed] = useState(false);
+  const [whiteTime, setWhiteTime] = useState(600);
+  const [blackTime, setBlackTime] = useState(600);
 
   const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw || isResigned || isDrawAgreed;
   const statusText = getStatusText(boardState, isResigned, isDrawAgreed);
-
-  const [showHistory, setShowHistory] = useState(false);
-  const [prevHistoryLength, setPrevHistoryLength] = useState(boardState.moveHistory.length);
-
-  if (boardState.moveHistory.length !== prevHistoryLength) {
-    setPrevHistoryLength(boardState.moveHistory.length);
-    if (boardState.moveHistory.length > 0) {
-      setShowHistory(false);
-    }
-  }
-
   const isGameActive = boardState.moveHistory.length > 0;
-  const shouldShowHistory = !isGameActive || showHistory;
-  const shouldShowMoves = isGameActive && !showHistory;
+
+  useEffect(() => {
+    if (!isGameActive || isGameOver) return;
+
+    const intervalId = setInterval(() => {
+      if (boardState.turn === 'w') {
+        setWhiteTime((time) => Math.max(0, time - 1));
+      } else {
+        setBlackTime((time) => Math.max(0, time - 1));
+      }
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [isGameActive, isGameOver, boardState.turn]);
 
   const handleNewGame = () => {
     boardState.reset();
-    setShowHistory(false);
     setIsResigned(false);
     setIsDrawAgreed(false);
+    setWhiteTime(600);
+    setBlackTime(600);
   };
 
   const handleSelectSquare = (square: string) => {
     if (isGameOver) return;
     boardState.selectSquare(square);
   };
-
 
   return (
     <div className="play-page">
@@ -89,90 +98,110 @@ export function PlayPage() {
 
         {/* Side Panel / Launcher (Always on the Right) */}
         <div className="play-page__panel">
-          <GlassCard padding="lg" className="play-page__panel-inner">
-            
-            {/* Zen Heading & Status */}
-            <div className="play-page__header">
-              <h2 className="play-page__title">Master Every Opening</h2>
-              <div className="play-page__status">
-                <span
+          {/* Card 1: Game Info & Timers */}
+          <GlassCard padding="md" className="play-page__info-card">
+            <div className="play-page__player-info">
+              {/* Black Player Row */}
+              <div
+                className={[
+                  'play-page__player-row',
+                  isGameActive && !isGameOver
+                    ? boardState.turn === 'b'
+                      ? 'play-page__player-row--active'
+                      : 'play-page__player-row--inactive'
+                    : '',
+                ].join(' ')}
+              >
+                <div className="play-page__player-name">
+                  <div className="play-page__player-turn-dot" />
+                  <span>Opponent</span>
+                </div>
+                <div
                   className={[
-                    'play-page__turn-indicator',
-                    boardState.turn === 'w'
-                      ? 'play-page__turn-indicator--white'
-                      : 'play-page__turn-indicator--black',
+                    'play-page__timer',
+                    isGameActive && !isGameOver && boardState.turn === 'b'
+                      ? 'play-page__timer--active'
+                      : '',
                   ].join(' ')}
-                />
-                <span className="play-page__status-text">{statusText}</span>
+                >
+                  {formatTime(blackTime)}
+                </div>
+              </div>
+
+              {/* White Player Row */}
+              <div
+                className={[
+                  'play-page__player-row',
+                  isGameActive && !isGameOver
+                    ? boardState.turn === 'w'
+                      ? 'play-page__player-row--active'
+                      : 'play-page__player-row--inactive'
+                    : '',
+                ].join(' ')}
+              >
+                <div className="play-page__player-name">
+                  <div className="play-page__player-turn-dot" />
+                  <span>You</span>
+                </div>
+                <div
+                  className={[
+                    'play-page__timer',
+                    isGameActive && !isGameOver && boardState.turn === 'w'
+                      ? 'play-page__timer--active'
+                      : '',
+                  ].join(' ')}
+                >
+                  {formatTime(whiteTime)}
+                </div>
               </div>
             </div>
 
-            {/* Scrollable Panel Content (to keep viewport locked) */}
-            <div className={[
-              'play-page__content-scrollable',
-              shouldShowHistory ? 'play-page__content-scrollable--scrollable' : ''
-            ].filter(Boolean).join(' ')}>
-              {/* Move List */}
-              <div className="play-page__section">
-                <div className={[
-                  'play-page__moves-wrapper',
-                  shouldShowMoves ? 'play-page__moves-wrapper--expanded' : 'play-page__moves-wrapper--collapsed'
-                ].join(' ')}>
-                  <div className="play-page__moves">
-                    <MoveList
-                      moves={boardState.moveHistory}
-                      currentMoveIndex={
-                        boardState.moveHistory.length > 0
-                          ? boardState.moveHistory.length - 1
-                          : undefined
-                      }
-                    />
+            <div className="play-page__status">
+              <span className="play-page__status-text">{statusText}</span>
+            </div>
+          </GlassCard>
+
+          {/* Card 2: Move History / Recent Games */}
+          <GlassCard padding="md" className="play-page__middle-card">
+            <div className="play-page__middle-scroller">
+              {isGameActive && !isGameOver ? (
+                <div className="play-page__moves">
+                  <MoveList
+                    moves={boardState.moveHistory}
+                    currentMoveIndex={
+                      boardState.moveHistory.length > 0
+                        ? boardState.moveHistory.length - 1
+                        : undefined
+                    }
+                  />
+                </div>
+              ) : (
+                <div className="play-page__section">
+                  <h3 className="play-page__section-title">Recent Games</h3>
+                  <div className="play-page__recent-list">
+                    {RECENT_GAMES.map((game) => (
+                      <GlassCard key={game.id} padding="sm" className="play-page__game-card">
+                        <div className="play-page__game-info">
+                          <div className="play-page__game-row">
+                            <span className="play-page__game-opponent">{game.opponent}</span>
+                            <Chip>{game.result}</Chip>
+                          </div>
+                          <span className="play-page__game-opening">{game.opening}</span>
+                          <span className="play-page__game-date">{game.date}</span>
+                        </div>
+                      </GlassCard>
+                    ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Recent Games */}
-              <div className={[
-                'play-page__section',
-                'play-page__history-wrapper',
-                shouldShowHistory ? 'play-page__history-wrapper--expanded' : 'play-page__history-wrapper--collapsed'
-              ].join(' ')}>
-                <h3 className="play-page__section-title">Recent Games</h3>
-                <div className="play-page__recent-list">
-                  {RECENT_GAMES.map((game) => (
-                    <GlassCard key={game.id} padding="sm" className="play-page__game-card">
-                      <div className="play-page__game-info">
-                        <div className="play-page__game-row">
-                          <span className="play-page__game-opponent">{game.opponent}</span>
-                          <Chip>{game.result}</Chip>
-                        </div>
-                        <span className="play-page__game-opening">{game.opening}</span>
-                        <span className="play-page__game-date">{game.date}</span>
-                      </div>
-                    </GlassCard>
-                  ))}
-                </div>
-              </div>
+              )}
             </div>
+          </GlassCard>
 
-            {/* Quick-Start Actions */}
+          {/* Card 3: Action Controls */}
+          <GlassCard padding="md" className="play-page__actions-card">
             <div className="play-page__actions">
               {isGameActive && !isGameOver ? (
                 <>
-                  <Button
-                    variant="secondary"
-                    onClick={() => setShowHistory((prev) => !prev)}
-                  >
-                    {showHistory ? (
-                      <>
-                        <List size={16} /> Show Moves
-                      </>
-                    ) : (
-                      <>
-                        <History size={16} /> Previous Games
-                      </>
-                    )}
-                  </Button>
                   <Button variant="secondary" onClick={() => setIsDrawAgreed(true)}>
                     <Handshake size={16} /> Offer Draw
                   </Button>
@@ -193,7 +222,6 @@ export function PlayPage() {
                 </Button>
               )}
             </div>
-            
           </GlassCard>
         </div>
       </div>
