@@ -49,7 +49,7 @@ function findKingSquare(game: Chess, color: Color): string | null {
   return null;
 }
 
-export function useBoardState(): BoardState {
+export function useBoardState(): BoardState & { checkSquare?: string } {
   const gameRef = useRef(new Chess());
 
   const [position, setPosition] = useState<BoardPosition>(() =>

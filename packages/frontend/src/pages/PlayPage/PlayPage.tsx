@@ -60,20 +60,37 @@ const RECENT_GAMES = [
 
 export function PlayPage() {
   const boardState = useBoardState();
+  const {
+    position,
+    selectedSquare,
+    legalMoves,
+    lastMove,
+    isCheck,
+    isCheckmate,
+    isStalemate,
+    isDraw,
+    turn,
+    fen,
+    reset,
+    checkSquare,
+    moveHistory,
+    selectSquare,
+  } = boardState;
+
   const [isResigned, setIsResigned] = useState(false);
   const [isDrawAgreed, setIsDrawAgreed] = useState(false);
   const [whiteTime, setWhiteTime] = useState(600);
   const [blackTime, setBlackTime] = useState(600);
 
-  const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw || isResigned || isDrawAgreed || whiteTime === 0 || blackTime === 0;
+  const isGameOver = isCheckmate || isStalemate || isDraw || isResigned || isDrawAgreed || whiteTime === 0 || blackTime === 0;
   const statusText = getStatusText(boardState, isResigned, isDrawAgreed, whiteTime, blackTime);
-  const isGameActive = boardState.moveHistory.length > 0;
+  const isGameActive = moveHistory.length > 0;
 
   useEffect(() => {
     if (!isGameActive || isGameOver) return;
 
     const intervalId = setInterval(() => {
-      if (boardState.turn === 'w') {
+      if (turn === 'w') {
         setWhiteTime((time) => Math.max(0, time - 1));
       } else {
         setBlackTime((time) => Math.max(0, time - 1));
@@ -81,10 +98,10 @@ export function PlayPage() {
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [isGameActive, isGameOver, boardState.turn]);
+  }, [isGameActive, isGameOver, turn]);
 
   const handleNewGame = () => {
-    boardState.reset();
+    reset();
     setIsResigned(false);
     setIsDrawAgreed(false);
     setWhiteTime(600);
@@ -93,13 +110,40 @@ export function PlayPage() {
 
   const handleSelectSquare = useCallback((square: string) => {
     if (isGameOver) return;
-    boardState.selectSquare(square);
-  }, [isGameOver, boardState.selectSquare]);
+    selectSquare(square);
+  }, [isGameOver, selectSquare]);
 
   const memoizedBoardState = useMemo(() => ({
-    ...boardState,
+    position,
+    selectedSquare,
+    legalMoves,
+    lastMove,
+    isCheck,
+    isCheckmate,
+    isStalemate,
+    isDraw,
+    turn,
+    fen,
+    reset,
+    checkSquare,
+    moveHistory,
     selectSquare: handleSelectSquare
-  }), [boardState, handleSelectSquare]);
+  }), [
+    position,
+    selectedSquare,
+    legalMoves,
+    lastMove,
+    isCheck,
+    isCheckmate,
+    isStalemate,
+    isDraw,
+    turn,
+    fen,
+    reset,
+    checkSquare,
+    moveHistory,
+    handleSelectSquare
+  ]);
 
   return (
     <div className="play-page">
@@ -119,7 +163,7 @@ export function PlayPage() {
                 className={[
                   'play-page__player-row',
                   isGameActive && !isGameOver
-                    ? boardState.turn === 'b'
+                    ? turn === 'b'
                       ? 'play-page__player-row--active'
                       : 'play-page__player-row--inactive'
                     : '',
@@ -132,7 +176,7 @@ export function PlayPage() {
                 <div
                   className={[
                     'play-page__timer',
-                    isGameActive && !isGameOver && boardState.turn === 'b'
+                    isGameActive && !isGameOver && turn === 'b'
                       ? 'play-page__timer--active'
                       : '',
                   ].join(' ')}
@@ -146,7 +190,7 @@ export function PlayPage() {
                 className={[
                   'play-page__player-row',
                   isGameActive && !isGameOver
-                    ? boardState.turn === 'w'
+                    ? turn === 'w'
                       ? 'play-page__player-row--active'
                       : 'play-page__player-row--inactive'
                     : '',
@@ -159,7 +203,7 @@ export function PlayPage() {
                 <div
                   className={[
                     'play-page__timer',
-                    isGameActive && !isGameOver && boardState.turn === 'w'
+                    isGameActive && !isGameOver && turn === 'w'
                       ? 'play-page__timer--active'
                       : '',
                   ].join(' ')}
@@ -180,10 +224,10 @@ export function PlayPage() {
               {isGameActive && !isGameOver ? (
                 <div className="play-page__moves">
                   <MoveList
-                    moves={boardState.moveHistory}
+                    moves={moveHistory}
                     currentMoveIndex={
-                      boardState.moveHistory.length > 0
-                        ? boardState.moveHistory.length - 1
+                      moveHistory.length > 0
+                        ? moveHistory.length - 1
                         : undefined
                     }
                   />
