@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { ChessBoard, useBoardState, MoveList, Button, GlassCard, Chip } from '../../components';
 import { Plus, RotateCcw, Flag, Handshake } from 'lucide-react';
 import './PlayPage.css';
@@ -6,8 +6,16 @@ import './PlayPage.css';
 function getStatusText(
   boardState: ReturnType<typeof useBoardState>,
   isResigned: boolean,
-  isDrawAgreed: boolean
+  isDrawAgreed: boolean,
+  whiteTime: number,
+  blackTime: number
 ): string {
+  if (whiteTime === 0) {
+    return 'Timeout - Black wins!';
+  }
+  if (blackTime === 0) {
+    return 'Timeout - White wins!';
+  }
   if (isResigned) {
     return `Resigned - ${boardState.turn === 'w' ? 'Black' : 'White'} wins!`;
   }
@@ -57,8 +65,8 @@ export function PlayPage() {
   const [whiteTime, setWhiteTime] = useState(600);
   const [blackTime, setBlackTime] = useState(600);
 
-  const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw || isResigned || isDrawAgreed;
-  const statusText = getStatusText(boardState, isResigned, isDrawAgreed);
+  const isGameOver = boardState.isCheckmate || boardState.isStalemate || boardState.isDraw || isResigned || isDrawAgreed || whiteTime === 0 || blackTime === 0;
+  const statusText = getStatusText(boardState, isResigned, isDrawAgreed, whiteTime, blackTime);
   const isGameActive = boardState.moveHistory.length > 0;
 
   useEffect(() => {
@@ -83,17 +91,22 @@ export function PlayPage() {
     setBlackTime(600);
   };
 
-  const handleSelectSquare = (square: string) => {
+  const handleSelectSquare = useCallback((square: string) => {
     if (isGameOver) return;
     boardState.selectSquare(square);
-  };
+  }, [isGameOver, boardState.selectSquare]);
+
+  const memoizedBoardState = useMemo(() => ({
+    ...boardState,
+    selectSquare: handleSelectSquare
+  }), [boardState, handleSelectSquare]);
 
   return (
     <div className="play-page">
       <div className="play-page__grid">
         {/* Board (Always on the Left) */}
         <div className="play-page__board">
-          <ChessBoard boardState={{ ...boardState, selectSquare: handleSelectSquare }} />
+          <ChessBoard boardState={memoizedBoardState} />
         </div>
 
         {/* Side Panel / Launcher (Always on the Right) */}
